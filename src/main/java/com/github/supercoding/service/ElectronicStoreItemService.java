@@ -131,7 +131,7 @@ public class ElectronicStoreItemService {
         // 트랜잭션 로직
         if(successByItemNums == 4) {
             log.error("4개를 구매하는건 허락하지 않습니다.");
-            throw new RuntimeException("4개를 구매하는건 허락하지 않습니다.");
+            throw new NotAcceptException("4개를 구매하는건 허락하지 않습니다.");
         }
 
         log.info("===============동작 확인 로그2 =================");

@@ -5,6 +5,8 @@ import com.github.supercoding.repository.airlineTicket.AirlineTicket;
 import com.github.supercoding.repository.airlineTicket.AirlineTicketFlightInfo;
 import com.github.supercoding.repository.airlineTicket.AirlineTicketRepository;
 import com.github.supercoding.repository.flight.Flight;
+import com.github.supercoding.repository.flight.FlightInfo;
+import com.github.supercoding.repository.flight.FlightJpaRepository;
 import com.github.supercoding.repository.passenger.Passenger;
 import com.github.supercoding.repository.passenger.PassengerJpaRepository;
 
@@ -19,10 +21,13 @@ import com.github.supercoding.repository.users.UserJpaRepository;
 
 import com.github.supercoding.service.exceptions.InvalidValueException;
 import com.github.supercoding.service.exceptions.NotFoundException;
+import com.github.supercoding.service.mapper.FlightMapper;
 import com.github.supercoding.service.mapper.TicketMapper;
 import com.github.supercoding.web.dto.airline.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +49,8 @@ public class AirReservationService {
     private final ReservationRepository reservationRepository;
 
     private final PaymentRepository paymentRepository;
+
+    private final FlightJpaRepository flightJpaRepository;
 
     public List<Ticket> findUserFavoritePlaceTickets(Integer userId, String ticketType) {
         // 필요한 Repository : UserRepository , AirlineTicketRepository
@@ -192,6 +199,18 @@ public class AirReservationService {
 
         // 3. 두개의 합을 다시 더하고 Return
         return flightSum + chargeSum;
+
+    }
+
+    public Page<FlightInfo> findFlightsWithTypeAndPageable(String ticketType, Pageable pageable) {
+
+        Page<Flight> flightList = flightJpaRepository.findAllByAirlineTicket_TicketType(ticketType, pageable);
+        return flightList.map(FlightMapper.INSTANCE::flightToFlightInfo);
+    }
+
+    public Set<String> findFlightArrivalLocation(String userName) {
+        Set<String> locations = reservationJpaRepository.findArrivalLocation(userName);
+        return locations;
 
     }
 }

@@ -1,5 +1,6 @@
 package com.github.supercoding.web.controller;
 
+import com.github.supercoding.repository.flight.FlightInfo;
 import com.github.supercoding.service.AirReservationService;
 import com.github.supercoding.service.exceptions.InvalidValueException;
 import com.github.supercoding.service.exceptions.NotAcceptException;
@@ -11,11 +12,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/v1/api/air-reservation/")
@@ -59,4 +63,18 @@ public class AirReservationController {
         Double sum = airReservationService.findUserFlightSumPrice(userId);
         return sum;
     }
+
+    @Operation(summary = "편도|왕복 의 비행기 Pageable")
+    @GetMapping("/flight-pageable")
+    public Page<FlightInfo> findFlightWithTicketType(@RequestParam("type") String ticketType, Pageable pageable) {
+        return airReservationService.findFlightsWithTypeAndPageable(ticketType,pageable);
+    }
+
+    @Operation(summary = "userId 의 예약한 항공편들의 목적지 출력")
+    @GetMapping("/username-arrival-location")
+    public Set<String> findUser(@RequestParam("username") String userName) {
+        return airReservationService.findFlightArrivalLocation(userName);
+    }
+
+
 }

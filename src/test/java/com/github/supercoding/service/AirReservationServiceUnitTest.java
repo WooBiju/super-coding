@@ -177,4 +177,5 @@ class AirReservationServiceUnitTest {
         assertThrows(NotFoundException.class,
                 () -> airReservationService.findUserFavoritePlaceTickets(userId,ticketType));
     }
+
 }

@@ -2,10 +2,7 @@ package com.github.supercoding.repository.flight;
 
 import com.github.supercoding.repository.airlineTicket.AirlineTicket;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.time.LocalDateTime;
@@ -14,6 +11,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Entity
 @Table(name = "flight")
@@ -43,6 +41,7 @@ public class Flight {
 
     @Column(name = "charge")
     private Double charge;
+
 
     @Override
     public boolean equals(Object o) {

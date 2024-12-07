@@ -19,13 +19,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
-@AutoConfigureMockMvc
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureMockMvc    // MockMvc 를 자동으로 설정해줌 , HTTP 요청 쉽게 테스트 가능
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)  // 테스트 데이터베이스 설정 자동으로 처리
 @Slf4j
 class AirReservationControllerSpringTest {
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mockMvc;   // MockMvc : Spring MVC 컨트롤러 테스트 하는데 사용
 
     @DisplayName("Find Airline Ticket 성공")
     @Test

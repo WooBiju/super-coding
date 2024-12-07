@@ -1,0 +1,13 @@
+2024-12-04 15:59:30.98 [main] [34mINFO [0;39m [36mc.g.s.SuperCodingApplication[0;39m -Starting SuperCodingApplication using Java 17.0.12 with PID 84692 (/Users/wbiju/Desktop/backend_super/super-coding/build/classes/java/main started by wbiju in /Users/wbiju/Desktop/backend_super/super-coding)
+2024-12-04 15:59:30.98 [main] [34mINFO [0;39m [36mc.g.s.SuperCodingApplication[0;39m -The following 1 profile is active: "dev"
+2024-12-04 15:59:31.31 [main] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.TomcatWebServer[0;39m -Tomcat initialized with port 8095 (http)
+2024-12-04 15:59:31.32 [main] [34mINFO [0;39m [36mo.a.coyote.http11.Http11NioProtocol[0;39m -Initializing ProtocolHandler ["http-nio-8095"]
+2024-12-04 15:59:31.32 [main] [34mINFO [0;39m [36mo.a.catalina.core.StandardService[0;39m -Starting service [Tomcat]
+2024-12-04 15:59:31.32 [main] [34mINFO [0;39m [36mo.a.catalina.core.StandardEngine[0;39m -Starting Servlet engine: [Apache Tomcat/10.1.33]
+2024-12-04 15:59:31.33 [main] [34mINFO [0;39m [36mo.a.c.c.C.[Tomcat].[localhost].[/][0;39m -Initializing Spring embedded WebApplicationContext
+2024-12-04 15:59:31.33 [main] [34mINFO [0;39m [36mo.s.b.w.s.c.ServletWebServerApplicationContext[0;39m -Root WebApplicationContext: initialization completed in 342 ms
+2024-12-04 15:59:31.48 [main] [34mINFO [0;39m [36mo.a.coyote.http11.Http11NioProtocol[0;39m -Starting ProtocolHandler ["http-nio-8095"]
+2024-12-04 15:59:31.49 [main] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.TomcatWebServer[0;39m -Tomcat started on port 8095 (http) with context path '/'
+2024-12-04 15:59:31.49 [main] [34mINFO [0;39m [36mc.g.s.SuperCodingApplication[0;39m -Started SuperCodingApplication in 0.689 seconds (process running for 0.976)
+2024-12-04 16:04:14.52 [SpringApplicationShutdownHook] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.GracefulShutdown[0;39m -Commencing graceful shutdown. Waiting for active requests to complete
+2024-12-04 16:04:14.53 [tomcat-shutdown] [34mINFO [0;39m [36mo.s.b.w.e.tomcat.GracefulShutdown[0;39m -Graceful shutdown complete

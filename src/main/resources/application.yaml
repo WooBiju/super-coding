@@ -1,0 +1,10 @@
+# spring.application.name=super-coding
+server:
+  port: 8090
+springdoc:
+  api-docs:
+    path: /v3/api-docs # OpenAPI JSON 문서의 경로
+  swagger-ui:
+    path: /swagger-ui.html # Swagger UI 경로
+    display-request-duration: true # 요청 소요 시간 표시
+    operations-sorter: method # API 정렬 기준

@@ -1,5 +1,6 @@
 package com.github.supercoding.web.controller;
 
+import com.github.supercoding.repository.UserDetails.CustomUserDetails;
 import com.github.supercoding.repository.flight.FlightInfo;
 import com.github.supercoding.service.AirReservationService;
 import com.github.supercoding.service.exceptions.InvalidValueException;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,13 +34,13 @@ public class AirReservationController {
 
     @GetMapping("/tickets")
     @Operation(summary = "선호하는 ticket 검색")
-    public TicketResponse findAirlineTickets(@RequestParam("user-Id") Integer userId,
+    public TicketResponse findAirlineTickets(@AuthenticationPrincipal CustomUserDetails customUserDetails,
                                              @RequestParam("airline-ticket-type")String ticketType){
 
+            Integer userId = customUserDetails.getUserId();
             List<Ticket> tickets = airReservationService.findUserFavoritePlaceTickets(userId,ticketType);
-
-            log.info("findTickets 호출됨: userId={}, ticketType={}", userId, ticketType);
-            return new TicketResponse();
+            //log.info("findTickets 호출됨: userId={}, ticketType={}", userId, ticketType);
+            return new TicketResponse(tickets);
     }
 
 

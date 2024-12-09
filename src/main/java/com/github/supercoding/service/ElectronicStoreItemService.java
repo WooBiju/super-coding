@@ -17,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,7 @@ public class ElectronicStoreItemService {
 
 
 
+    @Cacheable(value = "items",key = "#root.methodName")
     public List<Item> findAllItem() {
         // Repository 가 dto 반환하는 것은 좋지 않음 -> entity 반환하는것이 일반적
         List<ItemEntity> itemEntities = electronicStoreItemJpaRepository.findAll();
@@ -48,6 +51,7 @@ public class ElectronicStoreItemService {
         return itemEntities.stream().map(ItemMapper.INSTANCE::itemEntityToItem).collect(Collectors.toList());   // 반환
     }
 
+    @CacheEvict(value = "items",allEntries = true)
     public Integer saveItem(ItemBody itemBody) {
         ItemEntity itemEntity = ItemMapper.INSTANCE.idAndItemBodyToItemEntity(null, itemBody);
         ItemEntity itemEntityCreated;
@@ -60,6 +64,7 @@ public class ElectronicStoreItemService {
         return itemEntityCreated.getId();
     }
 
+    @Cacheable(value = "items",key = "#id")
     public Item findItemById(Integer id) {
         ItemEntity itemEntity = electronicStoreItemJpaRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("해당되는 id : " +id+ "의 Item을 찾을 수 없습니다."));
@@ -68,6 +73,7 @@ public class ElectronicStoreItemService {
         return item;
     }
 
+    @Cacheable(value = "items",key = "#ids")
     public List<Item> findItemsByIds(List<String> ids) {
         List<ItemEntity> itemEntities = electronicStoreItemJpaRepository.findAll();
         if(itemEntities.isEmpty()) throw new NotFoundException("아무 Item 들을 찾을 수 없습니다.");
@@ -78,6 +84,7 @@ public class ElectronicStoreItemService {
 
     }
 
+    @CacheEvict(value = "items",allEntries = true)
     public void deleteItem(String id) {
         Integer itemId = Integer.parseInt(id);
         if (!electronicStoreItemJpaRepository.existsById(itemId)) {  // id 존재하는지 확인
@@ -87,6 +94,7 @@ public class ElectronicStoreItemService {
     }
 
     @Transactional(transactionManager = "tmJpa1")
+    @CacheEvict(value = "items",allEntries = true)
     public Item updateItem(String id, ItemBody itemBody) {
         Integer idInt = Integer.valueOf(id);
         // 1. id를 먼저 찾음
